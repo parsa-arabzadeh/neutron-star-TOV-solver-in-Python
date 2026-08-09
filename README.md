@@ -4,26 +4,26 @@ A Python implementation of the Tolman–Oppenheimer–Volkoff (TOV) equations fo
 
 ## Overview
 
-The Tolman–Oppenheimer–Volkoff equations are solved numerically:
-
-$$
-\frac{dm}{dr}=4\pi r^2\frac{\epsilon}{c^2}
-$$
+The pressure gradient is given by the Tolman–Oppenheimer–Volkoff equation:
 
 $$
 \frac{dP}{dr}
 =
 -\frac{
 G(\epsilon+P)
-\left(m+\frac{4\pi r^3P}{c^2}\right)
+\left(
+m+\frac{4\pi r^3P}{c^2}
+\right)
 }
 {
 c^2 r^2
-\left(1-\frac{2Gm}{rc^2}\right)
+\left(
+1-\frac{2Gm}{rc^2}
+\right)
 }
 $$
 
-using numerical integration.
+The equations are solved using numerical integration.
 
 ## Features
 
