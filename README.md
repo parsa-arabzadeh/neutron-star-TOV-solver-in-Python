@@ -30,7 +30,7 @@ $$
 $$
 
 
-### Pressure equation
+## Pressure equation
 
 The pressure gradient is:
 
