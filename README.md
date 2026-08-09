@@ -101,7 +101,7 @@ The integration stops automatically when the pressure reaches zero, correspondin
 
 The mass-radius relation obtained from the TOV solver:
 
-![Mass-Radius Relation](figures/mass_radius_relation.png)
+![Mass-Radius Relation](figures/Mass Radius.png)
 
 ---
 
