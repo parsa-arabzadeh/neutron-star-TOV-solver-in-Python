@@ -32,6 +32,8 @@ $$
 
 ### Pressure equation
 
+The pressure gradient is:
+
 $$
 \frac{dP}{dr}
 =
@@ -42,7 +44,7 @@ m+\frac{4\pi r^3P}{c^2}
 \right)
 }
 {
-c^2r^2
+c^2 r^2
 \left(
 1-\frac{2Gm}{rc^2}
 \right)
