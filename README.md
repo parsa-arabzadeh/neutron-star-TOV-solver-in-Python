@@ -21,7 +21,7 @@ In this project, the TOV equations are solved using numerical integration to obt
 
 ## Physical Model
 
-The stellar structure is determined by solving the TOV equations:
+The stellar structure is determined by solving the Tolman–Oppenheimer–Volkoff (TOV) equations.
 
 ### Mass equation
 
@@ -32,7 +32,8 @@ $$
 
 ### Pressure equation
 
-The pressure gradient is:
+The pressure gradient is given by:
+
 $$
 \frac{dP}{dr}
 =
@@ -43,7 +44,7 @@ m+\frac{4\pi r^3P}{c^2}
 \right)
 }
 {
-c^2 r^2
+c^2r^2
 \left(
 1-\frac{2Gm}{rc^2}
 \right)
@@ -58,6 +59,7 @@ where:
 - \(\epsilon\) is the energy density
 - \(G\) is the gravitational constant
 - \(c\) is the speed of light
+
 
 ---
 
@@ -75,13 +77,12 @@ where:
 - \(\gamma\) is the adiabatic index
 - \(\rho\) is the rest-mass density
 
+
 The energy density is calculated as:
 
 $$
 \epsilon=\rho c^2+\frac{P}{\gamma-1}
 $$
-
----
 
 ## Numerical Method
 
