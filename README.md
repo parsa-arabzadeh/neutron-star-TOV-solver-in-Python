@@ -35,8 +35,7 @@ The pressure gradient is given by:
 
 $$
 \frac{dP}{dr}
-=
--\frac{
+=-\frac{
 G(\epsilon+P)
 \left(
 m+\frac{4\pi r^3P}{c^2}
