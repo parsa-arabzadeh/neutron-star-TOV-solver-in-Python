@@ -29,7 +29,6 @@ $$
 \frac{dm}{dr}=4\pi r^2\frac{\epsilon}{c^2}
 $$
 
-
 ### Pressure equation
 
 The pressure gradient is given by:
@@ -44,13 +43,12 @@ m+\frac{4\pi r^3P}{c^2}
 \right)
 }
 {
-c^2r^2
+c^2 r^2
 \left(
 1-\frac{2Gm}{rc^2}
 \right)
 }
 $$
-
 
 where:
 
@@ -84,6 +82,8 @@ $$
 \epsilon=\rho c^2+\frac{P}{\gamma-1}
 $$
 
+---
+
 ## Numerical Method
 
 The equations are solved using:
@@ -97,13 +97,13 @@ The integration stops automatically when the pressure reaches zero, correspondin
 
 ---
 
-## Result
+## Results
 
-The code produces the mass-radius relation of neutron stars and estimates the maximum stable mass for the chosen EOS.
+The mass-radius relation obtained from the TOV solver:
 
-## Example Output
+![Mass-Radius Relation](figures/mass_radius_relation.png)
 
-![Mass Radius Chart](Mass Radius_chart.png)
+---
 
 ## Author
 
