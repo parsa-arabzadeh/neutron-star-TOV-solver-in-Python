@@ -100,6 +100,9 @@ The integration stops automatically when the pressure reaches zero, correspondin
 ## Result
 
 The code produces the mass-radius relation of neutron stars and estimates the maximum stable mass for the chosen EOS.
+
+## Example Output
+
 ![Mass Radius](figures/Mass Radius.png)
 
 ## Author
