@@ -103,7 +103,7 @@ The code produces the mass-radius relation of neutron stars and estimates the ma
 
 ## Example Output
 
-![Mass Radius](figures/Mass Radius.png)
+![Mass Radius](Mass Radius.png)
 
 ## Author
 
