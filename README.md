@@ -11,13 +11,13 @@ Beyond standard hydrostatic equilibrium, this project computes key **Gravitation
 In strong-field gravity, Newtonian stellar structure breaks down. This solver integrates a coupled 5-dimensional system of Ordinary Differential Equations (ODEs) from the stellar core ($r \to 0$) to the surface ($P(R) = 0$) to extract:
 
 1. **Gravitational Mass–Radius Relation ($M - R$)** and the **TOV Maximum Mass Limit ($M_{\text{max}}$)**.
-2. **Radial Stability Analysis**: Separation of stable ($\frac{dM}{d\rho_c} > 0$) and unstable ($\frac{dM}{d\rho_c} < 0$) relativistic equilibrium branches.
+2. **Radial Stability Analysis**: Separation of stable ($dM/d\rho_c > 0$) and unstable ($dM/d\rho_c < 0$) relativistic equilibrium branches.
 3. **Gravitational-Wave Tidal Observables**:
-   - Quadrupolar metric perturbation profile $y(r) = \frac{r H'(r)}{H(r)}$.
+   - Quadrupolar metric perturbation profile $y(r) = r H'(r) / H(r)$.
    - Second-order Tidal Love Number ($k_2$).
    - Dimensionless Tidal Deformability ($\Lambda$) benchmarked against the **LIGO/Virgo GW170817** constraint ($\Lambda_{1.4} \lesssim 800$).
 4. **Baryonic Mass ($M_b$) & Gravitational Binding Energy ($E_{\text{bind}}$)**: Quantifying the energy reservoir available for neutrino and GW emission during core-collapse or merger remnants.
-5. **Surface Gravitational Redshift ($z_{\text{surf}}$)**, **Compactness ($\mathcal{C}$)**, and **Relativistic Speed of Sound ($c_s/c$)** causality checks.
+5. **Surface Gravitational Redshift ($z_{\text{surf}}$)**, **Compactness ($C$)**, and **Relativistic Speed of Sound ($c_s/c$)** causality checks.
 
 ---
 
@@ -54,7 +54,7 @@ $$\frac{dm_b}{dr} = \frac{4\pi r^2 \rho(r)}{\sqrt{1 - \frac{2Gm(r)}{rc^2}}}$$
 
 During the late inspiral of a Binary Neutron Star (BNS) coalescence, the external tidal field $\mathcal{E}_{ij}$ of one star induces a quadrupole moment $Q_{ij}$ in its companion ($Q_{ij} = -\lambda_{\text{tid}} \mathcal{E}_{ij}$). This tidal interaction accelerates the coalescence and imprints a measurable phase shift in the gravitational waveform.
 
-Following **Hinderer (2008)** and **Damour & Nagar (2009)**, static $\ell=2$ even-parity metric perturbations are governed by a first-order Riccati equation for the logarithmic derivative $y(r) \equiv \frac{r H'(r)}{H(r)}$:
+Following **Hinderer (2008)** and **Damour & Nagar (2009)**, static $\ell=2$ even-parity metric perturbations are governed by a first-order Riccati equation for the logarithmic derivative $y(r) \equiv r H'(r) / H(r)$:
 
 $$\frac{dy}{dr} = -\frac{1}{r}\left[ y^2 + y F(r) + Q(r) \right], \quad y(0) = 2$$
 
@@ -64,15 +64,19 @@ $$F(r) = \left(1 - \frac{2Gm}{rc^2}\right)^{-1} \left[ 1 - \frac{4\pi G r^2}{c^4
 
 $$Q(r) = \left(1 - \frac{2Gm}{rc^2}\right)^{-1} \left[ \frac{4\pi G r^2}{c^4}\left(5\epsilon + 9P + \frac{\epsilon + P}{(c_s/c)^2}\right) - 6 \right] - 4\left(r\frac{d\Phi}{dr}\right)^2$$
 
-where $(c_s/c)^2 = \frac{dP}{d\epsilon}$ is the squared relativistic speed of sound.
+where $(c_s/c)^2 = dP/d\epsilon$ is the squared relativistic speed of sound.
 
-Matching the interior solution $y_R = y(R)$ to the exterior Schwarzschild metric at the stellar surface yields the **second-order Tidal Love Number ($k_2$)** in terms of the stellar compactness $\mathcal{C} = \frac{GM}{Rc^2}$:
+Matching the interior solution $y_R = y(R)$ to the exterior Schwarzschild metric at the stellar surface yields the **second-order Tidal Love Number ($k_2$)** in terms of the stellar compactness $C = \frac{GM}{Rc^2}$:
 
-$$k_2 = \frac{8}{5}\mathcal{C}^5 (1-2\mathcal{C})^2 \left[ 2 + 2\mathcal{C}(y_R - 1) - y_R \right] \times \Big\{ 2\mathcal{C}\big[6 - 3y_R + 3\mathcal{C}(5y_R - 8)\big] + 4\mathcal{C}^3\big[13 - 11y_R + \mathcal{C}(3y_R - 2) + 2\mathcal{C}^2(1 + y_R)\big] + 3(1-2\mathcal{C})^2\big[2 - y_R + 2\mathcal{C}(y_R - 1)\big]\ln(1-2\mathcal{C}) \Big\}^{-1}$$
+$$k_2 = \frac{8}{5} C^5 (1-2C)^2 \left[ 2 + 2C(y_R - 1) - y_R \right] \cdot \frac{1}{D(C, y_R)}$$
+
+where the denominator $D(C, y_R)$ is given by:
+
+$$D(C, y_R) = 2C\left[6 - 3y_R + 3C(5y_R - 8)\right] + 4C^3\left[13 - 11y_R + C(3y_R - 2) + 2C^2(1 + y_R)\right] + 3(1-2C)^2\left[2 - y_R + 2C(y_R - 1)\right]\ln(1-2C)$$
 
 The **Dimensionless Tidal Deformability ($\Lambda$)** directly constrained by gravitational-wave detectors is:
 
-$$\Lambda = \frac{2}{3} k_2 \mathcal{C}^{-5}$$
+$$\Lambda = \frac{2}{3} k_2 C^{-5}$$
 
 ---
 
@@ -110,10 +114,10 @@ Running the simulation generates a comprehensive 4-panel astrophysical diagnosti
 
 ![TOV and Gravitational Wave Analysis](tov_gw_analysis.png)
 
-1. **Top-Left:** Mass–Radius ($M-R$) curve distinguishing the stable equilibrium branch ($\frac{dM}{d\rho_c} > 0$) from the unstable radial collapse branch ($\frac{dM}{d\rho_c} < 0$).
+1. **Top-Left:** Mass–Radius ($M-R$) curve distinguishing the stable equilibrium branch ($dM/d\rho_c > 0$) from the unstable radial collapse branch ($dM/d\rho_c < 0$).
 2. **Top-Right:** Dimensionless Tidal Deformability $\Lambda(M)$ compared against the LIGO/Virgo GW170817 upper bound ($\Lambda_{1.4} \lesssim 800$).
-3. **Bottom-Left:** Evolution of surface gravitational redshift $z_{\text{surf}}$, fractional binding energy $(M_b - M)/M$, and Love number $k_2$ as a function of compactness $\mathcal{C}$.
-4. **Bottom-Right:** Normalized radial profiles of pressure $P(r)/P_c$ and enclosed mass $m(r)/M$ for a canonical $1.4\,M_\odot$ neutron star.
+3. **Bottom-Left:** Evolution of surface gravitational redshift $z_{\text{surf}}$, fractional binding energy $(M_b - M)/M$, and Love number $k_2$ as a function of compactness $C$.
+4. **Bottom-Right:** Normalized radial profiles of pressure $P(r)/P_c$ and enclosed mass $m(r)/M$ for a canonical $1.4~M_\odot$ neutron star.
 
 ---
 
