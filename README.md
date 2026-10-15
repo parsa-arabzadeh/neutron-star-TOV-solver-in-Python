@@ -2,7 +2,7 @@
 
 A Python implementation of the **Tolman–Oppenheimer–Volkoff (TOV) equations** coupled with **relativistic quadrupolar tidal perturbation equations** in General Relativity. 
 
-Beyond standard hydrostatic equilibrium, this project computes key **Gravitational-Wave (GW) observables**—specifically the second-order **Tidal Love Number ($k_2$)** and the **Dimensionless Tidal Deformability ($\Lambda$)**—which directly govern the phase evolution of Binary Neutron Star (BNS) inspirals observed by **LIGO, Virgo, and KAGRA** (e.g., GW170817).
+Beyond standard hydrostatic equilibrium, this project computes key **Gravitational-Wave (GW) observables**, specifically the second-order **Tidal Love Number ($k_2$)** and the **Dimensionless Tidal Deformability ($\Lambda$)**, which directly govern the phase evolution of Binary Neutron Star (BNS) inspirals observed by **LIGO, Virgo, and KAGRA** (e.g., GW170817).
 
 ---
 
@@ -86,7 +86,7 @@ The solver employs a relativistic polytropic Equation of State:
 
 $$P = K \rho^\gamma, \qquad \epsilon = \rho c^2 + \frac{P}{\gamma - 1}$$
 
-where $\rho$ is the rest-mass density, $K$ is the polytropic constant, and $\gamma$ is the adiabatic index. The modular design of `density_from_pressure()`, `energy_density()`, and `sound_speed_squared()` allows seamless integration of realistic nuclear tabulated EOS (e.g., SLy4, APR4, MPA1) via cubic spline interpolation.
+where $\rho$ is the rest-mass density, $K = 2.0 \times 10^{-2}\text{ (SI)}$ is the polytropic constant, and $\gamma = 2.0$ is the adiabatic index. The modular design of `density_from_pressure()`, `energy_density()`, and `sound_speed_squared()` allows seamless integration of realistic nuclear tabulated EOS (e.g., SLy4, APR4, MPA1) via cubic spline interpolation.
 
 ---
 
@@ -110,14 +110,35 @@ python tov_gw_solver.py
 
 ## Results
 
+### 1. Console Output & Benchmark Observables
+Executing `tov_gw_solver.py` integrates a sequence of 60 relativistic stellar models across central pressures $P_c \in [10^{33}, 10^{36.2}]\text{ Pa}$ and outputs the key macroscopic and gravitational-wave observables:
+
+```text
+============================================================
+   RELATIVISTIC NEUTRON STAR & GRAVITATIONAL WAVE SOLVER
+============================================================
+Computed Models         : 60 stars
+Maximum Stable Mass     : 1.919 M_sun (at R = 13.15 km)
+------------------------------------------------------------
+Canonical 1.4 M_sun Neutron Star Observables (GW170817 ref):
+  Radius (R_1.4)        : 17.78 km
+  Love Number (k2)      : 0.1005
+  Tidal Deformability   : Lambda_1.4 = 3161.8
+  Surface Redshift (z)  : 0.141
+============================================================
+```
+
+> **Astrophysical Note:** Because the baseline model uses a relatively stiff polytropic parametrization ($K = 0.02, \gamma = 2$), the canonical $1.4~M_\odot$ star yields a large radius ($R_{1.4} = 17.78\text{ km}$) and consequently a high tidal deformability ($\Lambda_{1.4} \approx 3162 \propto R^5$), demonstrating how LIGO/Virgo observations ($\Lambda_{1.4} \lesssim 800$) rule out overly stiff Equations of State.
+
+### 2. Multi-Panel Diagnostic Plots
 Running the simulation generates a comprehensive 4-panel astrophysical diagnostic figure (`tov_gw_analysis.png`):
 
 ![TOV and Gravitational Wave Analysis](tov_gw_analysis.png)
 
-1. **Top-Left:** Mass–Radius ($M-R$) curve distinguishing the stable equilibrium branch ($dM/d\rho_c > 0$) from the unstable radial collapse branch ($dM/d\rho_c < 0$).
+1. **Top-Left:** Mass–Radius ($M-R$) curve distinguishing the stable equilibrium branch ($dM/d\rho_c > 0$) from the unstable radial collapse branch ($dM/d\rho_c < 0$), peaking at $M_{\text{max}} = 1.919~M_\odot$ ($R = 13.15\text{ km}$).
 2. **Top-Right:** Dimensionless Tidal Deformability $\Lambda(M)$ compared against the LIGO/Virgo GW170817 upper bound ($\Lambda_{1.4} \lesssim 800$).
 3. **Bottom-Left:** Evolution of surface gravitational redshift $z_{\text{surf}}$, fractional binding energy $(M_b - M)/M$, and Love number $k_2$ as a function of compactness $C$.
-4. **Bottom-Right:** Normalized radial profiles of pressure $P(r)/P_c$ and enclosed mass $m(r)/M$ for a canonical $1.4~M_\odot$ neutron star.
+4. **Bottom-Right:** Normalized radial profiles of pressure $P(r)/P_c$ and enclosed mass $m(r)/M$ for a representative $1.44~M_\odot$ neutron star.
 
 ---
 
